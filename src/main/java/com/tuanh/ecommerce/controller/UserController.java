@@ -1,5 +1,6 @@
 package com.tuanh.ecommerce.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,5 +27,11 @@ public class UserController {
                     .message(Code.CREATE_USER.getMessage())
                     .result(userService.createUser(request))
                     .build();
+    }
+
+    @GetMapping("/me")
+    public Response<UserCreationResponse> getMyInfo(){
+        return Response.<UserCreationResponse>builder()
+                        .build();
     }
 }
