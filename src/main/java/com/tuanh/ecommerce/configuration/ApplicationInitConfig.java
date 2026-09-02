@@ -3,10 +3,11 @@ package com.tuanh.ecommerce.configuration;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.tuanh.ecommerce.entity.user.Role;
 import com.tuanh.ecommerce.entity.user.User;
@@ -23,9 +24,24 @@ import lombok.extern.slf4j.Slf4j;
 public class ApplicationInitConfig {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    private final String admin_email = "admin@gmail.com";
-    private final String admin_phone = "admin";
+    @Value("${account.admin.email}")
+    private String admin_email;
+
+    @Value("${account.admin.username}")
+    private String admin_username;
+
+    @Value("${account.admin.password}")
+    private String admin_password;
+
+    @Value("${account.admin.fullname}")
+    private String admin_fullname;
+
+    @Value("${account.admin.phone}")
+    private String admin_phone;
+
+
     @Bean
     public ApplicationRunner applicationRunner(){
         return args -> {
@@ -55,15 +71,15 @@ public class ApplicationInitConfig {
                 roles.add(adminRole);
 
                 User admin = User.builder()
-                                .fullname("admin")
-                                .username("admin")
-                                .password("admin")
+                                .fullname(admin_fullname)
+                                .username(admin_password)
+                                .password(passwordEncoder.encode(admin_password))
                                 .email(admin_email)
                                 .phone(admin_phone)
                                 .roles(roles)
                                 .build();
                 userRepository.save(admin);
-                log.info("[!] Admin account has been created with default password : admin");
+                log.info("[!] Admin account has been created with default password : {}", admin_password);
             }
         };
     }

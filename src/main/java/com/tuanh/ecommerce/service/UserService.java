@@ -3,10 +3,13 @@ package com.tuanh.ecommerce.service;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tuanh.ecommerce.dto.request.UserCreatetionRequest;
+import com.tuanh.ecommerce.dto.response.GetInfoUserResponse;
 import com.tuanh.ecommerce.dto.response.UserCreationResponse;
 import com.tuanh.ecommerce.entity.user.Role;
 import com.tuanh.ecommerce.entity.user.User;
@@ -40,5 +43,12 @@ public class UserService {
         user.setRoles(roles);
 
         return userMapper.fromUserToUserCreationResponse(userRepository.save(user));
+    }
+
+    public GetInfoUserResponse getMyInfo(){
+        SecurityContext context = SecurityContextHolder.getContext();
+        String username = context.getAuthentication().getName();
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new AppException(Code.USER_NOT_EXIST));
+        return userMapper.fromUserToGetInfoUserResponse(user);
     }
 }

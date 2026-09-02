@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tuanh.ecommerce.dto.request.UserCreatetionRequest;
+import com.tuanh.ecommerce.dto.response.GetInfoUserResponse;
 import com.tuanh.ecommerce.dto.response.Response;
 import com.tuanh.ecommerce.dto.response.UserCreationResponse;
 import com.tuanh.ecommerce.enums.Code;
@@ -30,8 +31,9 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    public Response<UserCreationResponse> getMyInfo(){
-        return Response.<UserCreationResponse>builder()
+    public Response<GetInfoUserResponse> getMyInfo(){
+        return Response.<GetInfoUserResponse>builder()
+                        .result(userService.getMyInfo())
                         .build();
     }
 }

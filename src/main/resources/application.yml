@@ -14,3 +14,17 @@ server:
     port: 8080
     servlet:
         context-path: /e-commerce
+
+logging:
+    level:
+       '[org.springframework.security]': DEBUG
+
+account:
+    admin:
+        fullname: ${ADMIN_FULL_NAME}
+        username: ${ADMIN_USER_NAME}
+        password: ${ADMIN_PASS_WORD}
+        email: ${ADMIN_EMAIL}
+        phone: ${ADMIN_PHONE}
+
+ 

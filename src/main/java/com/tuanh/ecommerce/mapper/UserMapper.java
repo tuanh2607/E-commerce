@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.tuanh.ecommerce.dto.request.UserCreatetionRequest;
+import com.tuanh.ecommerce.dto.response.GetInfoUserResponse;
 import com.tuanh.ecommerce.dto.response.UserCreationResponse;
 import com.tuanh.ecommerce.entity.user.User;
 
@@ -14,4 +15,5 @@ public interface UserMapper {
     public User fromCreationUserRequestToUser(UserCreatetionRequest request);
 
     public UserCreationResponse fromUserToUserCreationResponse(User user);
+    public GetInfoUserResponse fromUserToGetInfoUserResponse(User user);
 }

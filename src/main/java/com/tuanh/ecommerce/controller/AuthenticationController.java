@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tuanh.ecommerce.dto.request.AuthenticationRequest;
 import com.tuanh.ecommerce.dto.response.AuthenticationResponse;
 import com.tuanh.ecommerce.dto.response.Response;
+import com.tuanh.ecommerce.service.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,10 +16,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthenticationController {
+    private final AuthenticationService authenticationService;
+
     
     @PostMapping("/login")
     public Response<AuthenticationResponse> login(@RequestBody AuthenticationRequest request){
         return Response.<AuthenticationResponse>builder()
+                            .result(authenticationService.authenticate(request))
                             .build();
     }
 }
