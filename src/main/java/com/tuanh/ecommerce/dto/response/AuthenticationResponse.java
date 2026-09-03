@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class AuthenticationResponse {
+    private String fullname;
     private String token;
 }

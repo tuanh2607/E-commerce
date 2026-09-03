@@ -1,4 +1,4 @@
-package com.tuanh.ecommerce.enums;
+package com.tuanh.ecommerce.enums.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

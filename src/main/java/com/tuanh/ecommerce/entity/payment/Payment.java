@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.tuanh.ecommerce.entity.cart_order.Order;
-import com.tuanh.ecommerce.enums.PaymentProvider;
-import com.tuanh.ecommerce.enums.PaymentStatus;
+import com.tuanh.ecommerce.enums.payment.PaymentProvider;
+import com.tuanh.ecommerce.enums.payment.PaymentStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

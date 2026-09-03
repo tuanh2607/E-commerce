@@ -3,6 +3,7 @@ package com.tuanh.ecommerce.service;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,8 +14,8 @@ import com.tuanh.ecommerce.dto.response.GetInfoUserResponse;
 import com.tuanh.ecommerce.dto.response.UserCreationResponse;
 import com.tuanh.ecommerce.entity.user.Role;
 import com.tuanh.ecommerce.entity.user.User;
-import com.tuanh.ecommerce.enums.Authority;
-import com.tuanh.ecommerce.enums.Code;
+import com.tuanh.ecommerce.enums.ErrorCode;
+import com.tuanh.ecommerce.enums.auth.Authority;
 import com.tuanh.ecommerce.exception.AppException;
 import com.tuanh.ecommerce.mapper.UserMapper;
 import com.tuanh.ecommerce.repository.RoleRepository;
@@ -32,10 +33,10 @@ public class UserService {
 
     public UserCreationResponse createUser(UserCreatetionRequest request){
         if(userRepository.existsByUsername(request.getUsername())){ // Suggest update : Indexing for username
-            throw new AppException(Code.USER_EXISTED);
+            throw new AppException(ErrorCode.USER_EXISTED);
         } 
         User user = userMapper.fromCreationUserRequestToUser(request);
-        Role role = roleRepository.findByName(Authority.USER.toString()).orElseThrow(() -> new RuntimeException("User role is not exist"));
+        Role role = roleRepository.findByName(Authority.USER.toString()).orElseThrow(() -> new AppException(ErrorCode.USER_ROLE_NOT_EXIST));
         Set<Role> roles = new HashSet<>();
         roles.add(role);
 
@@ -45,10 +46,11 @@ public class UserService {
         return userMapper.fromUserToUserCreationResponse(userRepository.save(user));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public GetInfoUserResponse getMyInfo(){
         SecurityContext context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new AppException(Code.USER_NOT_EXIST));
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXIST));
         return userMapper.fromUserToGetInfoUserResponse(user);
     }
 }

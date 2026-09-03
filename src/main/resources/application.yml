@@ -26,5 +26,6 @@ account:
         password: ${ADMIN_PASS_WORD}
         email: ${ADMIN_EMAIL}
         phone: ${ADMIN_PHONE}
-
+jwt:
+    signerKey: ${SIGNER_KEY} 
  

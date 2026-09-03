@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tuanh.ecommerce.enums.ProductStatus;
+import com.tuanh.ecommerce.enums.product.ProductStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

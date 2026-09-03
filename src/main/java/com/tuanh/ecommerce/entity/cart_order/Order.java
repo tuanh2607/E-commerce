@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.tuanh.ecommerce.entity.user.User;
-import com.tuanh.ecommerce.enums.OrderStatus;
-import com.tuanh.ecommerce.enums.PaymentMethod;
+import com.tuanh.ecommerce.enums.oder.OrderStatus;
+import com.tuanh.ecommerce.enums.payment.PaymentMethod;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

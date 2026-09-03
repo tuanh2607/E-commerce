@@ -10,7 +10,7 @@ import com.tuanh.ecommerce.dto.request.UserCreatetionRequest;
 import com.tuanh.ecommerce.dto.response.GetInfoUserResponse;
 import com.tuanh.ecommerce.dto.response.Response;
 import com.tuanh.ecommerce.dto.response.UserCreationResponse;
-import com.tuanh.ecommerce.enums.Code;
+import com.tuanh.ecommerce.enums.SuccessCode;
 import com.tuanh.ecommerce.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,8 +24,8 @@ public class UserController {
     @PostMapping("/register")
     public Response<UserCreationResponse> createUser(@RequestBody UserCreatetionRequest request){
         return Response.<UserCreationResponse>builder()
-                    .code(Code.CREATE_USER.getCode())
-                    .message(Code.CREATE_USER.getMessage())
+                    .code(SuccessCode.CREATE_USER.getCode())
+                    .message(SuccessCode.CREATE_USER.getMessage())
                     .result(userService.createUser(request))
                     .build();
     }

@@ -1,4 +1,4 @@
-package com.tuanh.ecommerce.enums;
+package com.tuanh.ecommerce.enums.product;
 
 public enum ProductStatus {
     ACTIVE, 

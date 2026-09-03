@@ -11,7 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.tuanh.ecommerce.entity.user.Role;
 import com.tuanh.ecommerce.entity.user.User;
-import com.tuanh.ecommerce.enums.Authority;
+import com.tuanh.ecommerce.enums.ErrorCode;
+import com.tuanh.ecommerce.enums.auth.Authority;
+import com.tuanh.ecommerce.exception.AppException;
 import com.tuanh.ecommerce.repository.RoleRepository;
 import com.tuanh.ecommerce.repository.UserRepository;
 
@@ -65,8 +67,8 @@ public class ApplicationInitConfig {
 
             if(!userRepository.existsByUsername(Authority.ADMIN.toString())){
                 Set<Role> roles = new HashSet<>();
-                Role userRole = roleRepository.findByName(Authority.USER.toString()).orElseThrow(() -> new RuntimeException("Can not create Admin account because user role is not exist"));
-                Role adminRole = roleRepository.findByName(Authority.ADMIN.toString()).orElseThrow(() -> new RuntimeException("Can not create Admin account because admin role is not exist"));
+                Role userRole = roleRepository.findByName(Authority.USER.toString()).orElseThrow(() -> new AppException(ErrorCode.USER_ROLE_NOT_EXIST));
+                Role adminRole = roleRepository.findByName(Authority.ADMIN.toString()).orElseThrow(() -> new AppException(ErrorCode.ADMIN_ROLE_NOT_EXIST));
                 roles.add(userRole);
                 roles.add(adminRole);
 
