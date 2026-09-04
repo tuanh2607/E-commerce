@@ -9,7 +9,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum SuccessCode {
-    CREATE_USER(2001, "[!] Create user successful", HttpStatus.CREATED)
+    CREATE_USER(2001, "Create user successful", HttpStatus.CREATED),
+    UNABLE_TOKEN(2002, "Unbale token successful", HttpStatus.ACCEPTED)
     ;
     private int code;
     private String message;

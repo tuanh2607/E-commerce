@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.tuanh.ecommerce.security.CustomJwtDecoder;
@@ -20,8 +21,9 @@ import lombok.RequiredArgsConstructor;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final String[] PUBLIC_POST_ENDPOINT = {"/users/**", "/auth/login"};
+    private final String[] PUBLIC_POST_ENDPOINT = {"/users/**", "/auth/**"};
     private final CustomJwtDecoder customJwtDecoder;
+    private final JwtAuthenticationConverter jwtAuthenticationConverter;
 
     @Value("${jwt.signerKey}")
     private String signerKey;
@@ -32,7 +34,9 @@ public class SecurityConfig {
             request.requestMatchers(HttpMethod.POST, PUBLIC_POST_ENDPOINT).permitAll()
                    .anyRequest().authenticated()
         );
-        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfig -> jwtConfig.decoder(customJwtDecoder)));
+        http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfig -> jwtConfig.decoder(customJwtDecoder)
+                                                                             .jwtAuthenticationConverter(jwtAuthenticationConverter)
+                                                        ));
         http.csrf(csrf -> csrf.disable());
         return http.build();
     }

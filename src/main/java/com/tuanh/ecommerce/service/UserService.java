@@ -46,7 +46,7 @@ public class UserService {
         return userMapper.fromUserToUserCreationResponse(userRepository.save(user));
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public GetInfoUserResponse getMyInfo(){
         SecurityContext context = SecurityContextHolder.getContext();
         String username = context.getAuthentication().getName();
