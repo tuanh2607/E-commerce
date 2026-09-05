@@ -1,5 +1,7 @@
 package com.tuanh.ecommerce.dto.request;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +13,10 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
-    private String username;
-    private String password;
+public class CreateProductRequest {
+    private String name;
+    private String description;
+    private BigDecimal price;
+    private Integer quantity;
+    private Long category;
 }

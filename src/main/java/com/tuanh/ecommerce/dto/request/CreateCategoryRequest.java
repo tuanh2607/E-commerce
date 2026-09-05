@@ -11,7 +11,9 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRequest {
-    private String username;
-    private String password;
+public class CreateCategoryRequest {
+    private String name;
+
+    @Builder.Default
+    private Long parentCategory = null;
 }

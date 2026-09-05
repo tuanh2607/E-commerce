@@ -1,0 +1,31 @@
+package com.tuanh.ecommerce.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.tuanh.ecommerce.dto.request.CreateCategoryRequest;
+import com.tuanh.ecommerce.dto.response.Response;
+import com.tuanh.ecommerce.enums.SuccessCode;
+import com.tuanh.ecommerce.service.CategoryService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequestMapping("/categories")
+@RequiredArgsConstructor
+public class CategoryController {
+    private final CategoryService categoryService;
+
+    @PostMapping
+    public ResponseEntity<Response<Void>> createCategory(@RequestBody CreateCategoryRequest request){
+        categoryService.createCategory(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Response.<Void>builder()
+                            .code(SuccessCode.CREATE_CATEGORY.getCode())
+                            .message(SuccessCode.CREATE_CATEGORY.getMessage())
+                            .build());
+    }       
+}

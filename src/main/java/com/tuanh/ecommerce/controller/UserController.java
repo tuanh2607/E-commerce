@@ -1,5 +1,7 @@
 package com.tuanh.ecommerce.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,18 +24,18 @@ public class UserController {
     private final UserService userService;
       
     @PostMapping("/register")
-    public Response<UserCreationResponse> createUser(@RequestBody UserCreatetionRequest request){
-        return Response.<UserCreationResponse>builder()
+    public ResponseEntity<Response<UserCreationResponse>> createUser(@RequestBody UserCreatetionRequest request){
+        return ResponseEntity.status(HttpStatus.CREATED).body(Response.<UserCreationResponse>builder()
                     .code(SuccessCode.CREATE_USER.getCode())
                     .message(SuccessCode.CREATE_USER.getMessage())
                     .result(userService.createUser(request))
-                    .build();
+                    .build());
     }
 
     @GetMapping("/me")
-    public Response<GetInfoUserResponse> getMyInfo(){
-        return Response.<GetInfoUserResponse>builder()
+    public ResponseEntity<Response<GetInfoUserResponse>> getMyInfo(){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(Response.<GetInfoUserResponse>builder()
                         .result(userService.getMyInfo())
-                        .build();
+                        .build());
     }
 }
