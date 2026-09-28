@@ -38,7 +38,7 @@ public class SecurityConfig {
         );
         http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfig -> jwtConfig.decoder(customJwtDecoder)
                                                                              .jwtAuthenticationConverter(jwtAuthenticationConverter))
-                                                   .authenticationEntryPoint(customJwtAuthenticationEntryPoint)   
+                                                  .authenticationEntryPoint(customJwtAuthenticationEntryPoint)   
                                 );
         http.csrf(csrf -> csrf.disable());
         return http.build();

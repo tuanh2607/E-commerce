@@ -42,9 +42,11 @@ public class Category {
 
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<Category> listCategory = new HashSet<>();
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private Set<Category> children = new HashSet<>();
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @Builder.Default
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<Product> products = new ArrayList<>();
 }
