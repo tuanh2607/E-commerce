@@ -21,6 +21,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Setter
 @Getter
@@ -42,11 +44,11 @@ public class Category {
 
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
     @Builder.Default
-    @com.fasterxml.jackson.annotation.JsonIgnore
+    @JsonIgnore
     private Set<Category> children = new HashSet<>();
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @Builder.Default
-    @com.fasterxml.jackson.annotation.JsonIgnore
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 }
