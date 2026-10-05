@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import com.tuanh.ecommerce.entity.product.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long>{
-    @Query("SELECT c FROM Category AS c LEFT JOIN FETCH c.children WHERE c.id = :parentId")
+    @Query("SELECT c FROM Category AS c LEFT JOIN FETCH c.childrens WHERE c.id = :parentId")
     Optional<Category> findByIdWithChildren(@Param("parentId") Long parentId);
 }

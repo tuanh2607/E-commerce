@@ -39,4 +39,10 @@ public class AuthenticationController {
                     .build());
     }
     
+    @PostMapping("/refresh-token")
+    public ResponseEntity<Response<Void>> refreshToken(){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+            Response.<Void>builder().build()
+        );
+    }
 }

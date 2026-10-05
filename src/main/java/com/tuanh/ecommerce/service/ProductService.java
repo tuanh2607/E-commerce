@@ -1,6 +1,7 @@
 package com.tuanh.ecommerce.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,10 @@ public class ProductService {
     public List<ProductResponse> getProducts(String keyword, Pageable pageable){
         List<Product> products = ((keyword == null) || (keyword.isBlank())) ? productRepository.findAll(pageable).getContent() : productRepository.findByNameAndPagination(keyword, pageable);
         return productMapper.fromListProductToListProductResponse(products);
+    }
+
+    public ProductResponse getProduct(Long id){
+        Product product = productRepository.findByIdWithDetails(id);
+        return productMapper.fromProductToProductResponse(product);
     }
 }

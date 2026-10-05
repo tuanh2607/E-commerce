@@ -11,7 +11,7 @@ import com.tuanh.ecommerce.entity.product.Category;
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
 
-    @Mapping(source = "parentCategory.id", target = "parentCategory")
+    @Mapping(source = "parentCategory.id", target = "parentId")
     CategoryResponse fromCategoryToCategoryResponse(Category category);
 
     List<CategoryResponse> fromCategoryToCategoryResponseList(List<Category> list);

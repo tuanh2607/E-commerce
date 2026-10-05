@@ -12,4 +12,7 @@ import com.tuanh.ecommerce.entity.product.Product;
 public interface ProductRepository extends JpaRepository<Product, Long>{
     @Query("SELECT p FROM Product AS p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Product> findByNameAndPagination(@Param("keyword") String keyword, Pageable pageable);
+
+    @Query("SELECT p FROM Product AS p LEFT JOIN FETCH p.images LEFT JOIN FETCH p.category WHERE p.id=:id")
+    Product findByIdWithDetails(@Param("id") Long id);
 }

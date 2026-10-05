@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tuanh.ecommerce.dto.request.CreateCategoryRequest;
 import com.tuanh.ecommerce.dto.response.CategoryResponse;
 import com.tuanh.ecommerce.dto.response.Response;
-import com.tuanh.ecommerce.entity.product.Category;
 import com.tuanh.ecommerce.enums.SuccessCode;
 import com.tuanh.ecommerce.service.CategoryService;
 
@@ -43,8 +42,8 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response<Category>> getAllChildCategories(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(Response.<Category>builder()
+    public ResponseEntity<Response<CategoryResponse>> getAllChildCategories(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(Response.<CategoryResponse>builder()
                                                         .result(categoryService.getAllChildCategories(id))
                                                         .build());
     }

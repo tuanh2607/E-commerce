@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,17 @@ public class ProductController {
     public ResponseEntity<Response<List<ProductResponse>>> getProducts(@RequestParam(required = false) String keyword, @PageableDefault(size = 2, sort = "id") Pageable pageable){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(Response.<List<ProductResponse>>builder()
                                                             .result(productService.getProducts(keyword, pageable))
+                                                            .message("Get products successful")
                                                             .build()
         );
     } 
+    @GetMapping("/{id}")
+    public ResponseEntity<Response<ProductResponse>> getProduct(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+            Response.<ProductResponse>builder()
+                        .result(productService.getProduct(id))
+                        .message("Get product successful")
+                        .build()
+        );
+    }
 }

@@ -1,6 +1,7 @@
 package com.tuanh.ecommerce.dto.response;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,4 +13,5 @@ public class ProductResponse {
     private String description;
     private BigDecimal price;
     private Integer quantity;
+    private List<ImageResponse> images;
 }

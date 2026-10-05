@@ -1,9 +1,7 @@
 package com.tuanh.ecommerce.entity.product;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,8 +18,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+ 
 
 @Entity
 @Setter
@@ -44,11 +41,9 @@ public class Category {
 
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
     @Builder.Default
-    @JsonIgnore
-    private Set<Category> children = new HashSet<>();
+    private List<Category> childrens = new ArrayList<>();
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @Builder.Default
-    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 }

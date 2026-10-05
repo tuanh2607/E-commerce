@@ -37,8 +37,20 @@ public class CategoryService {
         return categoryMapper.fromCategoryToCategoryResponseList(list);
     }
 
-    public Category getAllChildCategories(Long id){
+    public CategoryResponse getAllChildCategories(Long id){
         Category parentCategory = categoryRepository.findByIdWithChildren(id).orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_EXIST));
-        return parentCategory;
+        return CategoryResponse.builder()
+            .id(parentCategory.getId())
+            .name(parentCategory.getName())
+            .parentId(parentCategory.getParentCategory() != null ? parentCategory.getParentCategory().getId() : null)
+            .childrens(parentCategory.getChildrens().stream()
+                .map(child -> CategoryResponse.builder()
+                    .id(child.getId())
+                    .name(child.getName())
+                    .parentId(parentCategory.getId())
+                .build()
+                ).toList()
+            )
+        .build();
     }
 }
