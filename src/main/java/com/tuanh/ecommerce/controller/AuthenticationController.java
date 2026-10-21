@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tuanh.ecommerce.dto.request.AuthenticationRequest;
 import com.tuanh.ecommerce.dto.request.LogoutRequest;
+import com.tuanh.ecommerce.dto.request.RefreshTokenRequest;
 import com.tuanh.ecommerce.dto.response.AuthenticationResponse;
+import com.tuanh.ecommerce.dto.response.RefreshTokenResponse;
 import com.tuanh.ecommerce.dto.response.Response;
 import com.tuanh.ecommerce.enums.SuccessCode;
 import com.tuanh.ecommerce.service.AuthenticationService;
@@ -40,9 +42,11 @@ public class AuthenticationController {
     }
     
     @PostMapping("/refresh-token")
-    public ResponseEntity<Response<Void>> refreshToken(){
+    public ResponseEntity<Response<RefreshTokenResponse>> refreshToken(@RequestBody RefreshTokenRequest request) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(
-            Response.<Void>builder().build()
+            Response.<RefreshTokenResponse>builder()
+                        .result(authenticationService.refreshToken(request))
+                        .build()
         );
     }
 }

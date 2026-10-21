@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tuanh.ecommerce.dto.request.UserCreatetionRequest;
 import com.tuanh.ecommerce.dto.response.GetInfoUserResponse;
-import com.tuanh.ecommerce.dto.response.UserCreationResponse;
+import com.tuanh.ecommerce.dto.response.UserResponse;
 import com.tuanh.ecommerce.entity.user.Role;
 import com.tuanh.ecommerce.entity.user.User;
 import com.tuanh.ecommerce.enums.ErrorCode;
@@ -30,7 +30,7 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public UserCreationResponse createUser(UserCreatetionRequest request){
+    public UserResponse createUser(UserCreatetionRequest request){
         if(userRepository.existsByUsername(request.getUsername())){ // Suggest update : Indexing for username
             throw new AppException(ErrorCode.USER_EXISTED);
         } 

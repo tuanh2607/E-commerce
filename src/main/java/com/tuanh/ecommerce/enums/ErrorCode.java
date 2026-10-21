@@ -16,7 +16,8 @@ public enum ErrorCode {
     ERROR_TOKEN(1007, "Token is not valid"),
     CATEGORY_NOT_EXIST(1008, "Category is not exist"),
     AUTHENTICATION_REQUIRED(1009, "Authentication is required"),
-    PRODUCT_NOT_EXIST(1010, "Product is not exist")
+    PRODUCT_NOT_EXIST(1010, "Product is not exist"),
+    CART_NOT_EXIST(1011, "Cart is not exist")
     ;
     private int code;
     private String message;

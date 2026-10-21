@@ -24,7 +24,9 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import com.tuanh.ecommerce.dto.request.AuthenticationRequest;
 import com.tuanh.ecommerce.dto.request.LogoutRequest;
+import com.tuanh.ecommerce.dto.request.RefreshTokenRequest;
 import com.tuanh.ecommerce.dto.response.AuthenticationResponse;
+import com.tuanh.ecommerce.dto.response.RefreshTokenResponse;
 import com.tuanh.ecommerce.entity.user.InvalidatedToken;
 import com.tuanh.ecommerce.entity.user.User;
 import com.tuanh.ecommerce.enums.ErrorCode;
@@ -116,5 +118,26 @@ public class AuthenticationService {
         } catch (JOSEException | ParseException exception){
             throw new AppException(ErrorCode.ERROR_TOKEN);
         }
+    }
+
+    public RefreshTokenResponse refreshToken(RefreshTokenRequest request) {
+        SignedJWT verified;
+        JWTClaimsSet claimsSet;
+        try {
+            verified = verifyToken(request.getToken());
+            claimsSet = verified.getJWTClaimsSet();
+        }catch(ParseException | JOSEException e){
+            throw new AppException(ErrorCode.ERROR_TOKEN);
+        } 
+    
+        InvalidatedToken token = InvalidatedToken.builder()
+                                            .id(claimsSet.getJWTID())
+                                            .expiryTime(claimsSet.getExpirationTime())
+                                            .build();
+        invalidatedTokenRepository.save(token);
+        User user = userRepository.findByUsername(claimsSet.getSubject()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXIST));
+        return RefreshTokenResponse.builder()
+                        .token(generateToken(user))
+                        .build();
     }
 }

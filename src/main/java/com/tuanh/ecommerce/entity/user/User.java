@@ -2,6 +2,7 @@ package com.tuanh.ecommerce.entity.user;
 
 import java.util.Set;
 
+import com.tuanh.ecommerce.entity.cart_order.Cart;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,5 +55,6 @@ public class User {
     )
     private Set<Role> roles;
 
-    
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
 }
