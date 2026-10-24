@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tuanh.ecommerce.dto.request.CreateImageRequest;
 import com.tuanh.ecommerce.dto.response.Response;
-import com.tuanh.ecommerce.service.ImageService;
+import com.tuanh.ecommerce.service.ProductImageService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/images")
 @RequiredArgsConstructor 
 public class ImageController {
-    private final ImageService imageService;
+    private final ProductImageService imageService;
 
     @PostMapping
     public ResponseEntity<Response<Void>> createImage(@RequestBody CreateImageRequest request){

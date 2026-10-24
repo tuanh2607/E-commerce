@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tuanh.ecommerce.dto.request.CreateCartRequest;
+import com.tuanh.ecommerce.dto.request.AddToCartRequest;
 import com.tuanh.ecommerce.dto.response.CartResponse;
 import com.tuanh.ecommerce.dto.response.Response;
 import com.tuanh.ecommerce.service.CartService;
@@ -23,11 +23,11 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping
-    public ResponseEntity<Response<Void>> createCart(@RequestBody CreateCartRequest request){
-        cartService.createCart(request);
+    public ResponseEntity<Response<Void>> addToCart(@RequestBody AddToCartRequest request){
+        cartService.addToCart(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(
                         Response.<Void>builder()
-                                .message("Create cart successful")
+                                .message("Add to cart successful")
                                 .build()
         );
     } 

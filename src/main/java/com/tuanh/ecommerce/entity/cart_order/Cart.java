@@ -38,5 +38,5 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart", fetch = FetchType.LAZY)
     @Builder.Default
-    private List<CartItem> items = new ArrayList<>();
+    private List<CartProduct> items = new ArrayList<>();
 }

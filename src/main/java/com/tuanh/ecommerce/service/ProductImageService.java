@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service 
 @RequiredArgsConstructor 
-public class ImageService {
+public class ProductImageService {
     private final ImageRepository imageRepository;
     private final ProductRepository productRepository;
 

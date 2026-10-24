@@ -20,8 +20,6 @@ public class JwtConfig {
     public JwtDecoder jwtDecoder(){
         SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(), "HS512");
         NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(secretKeySpec).macAlgorithm(MacAlgorithm.HS512).build();
-        // Set clock skew về 0 giây
-        // jwtDecoder.setJwtValidator(new JwtTimestampValidator(Duration.ofSeconds(0)));
         return jwtDecoder;
     }
 
